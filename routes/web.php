@@ -15,44 +15,54 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     //About
-    Route::get('/abouts', [AboutController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.abouts.index');
-    Route::get('/abouts/create', [AboutController::class, 'create'])->middleware(['auth', 'admin'])->name('admin.abouts.create');
-    Route::post('/abouts', [AboutController::class, 'store'])->middleware(['auth', 'admin'])->name('adminabouts.store');
-    Route::get('/abouts/{about}/edit', [AboutController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.abouts.edit');
-    Route::put('/abouts/{about}', [AboutController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.bouts.update');
-    Route::delete('/abouts/{about}', [AboutController::class, 'destroy'])->middleware(['auth', 'admin'])->name('admin.abouts.destroy');
+    Route::prefix('abouts')->name('admin.abouts.')->group(function () {
+        Route::get('/', [AboutController::class, 'index'])->name('index');
+        Route::get('/create', [AboutController::class, 'create'])->name('create');
+        Route::post('/', [AboutController::class, 'store'])->name('store');
+        Route::get('/{about}/edit', [AboutController::class, 'edit'])->name('edit');
+        Route::put('/{about}', [AboutController::class, 'update'])->name('update');
+        Route::delete('/{about}', [AboutController::class, 'destroy'])->name('destroy');
+    });
 
     //Sertifikat
-    Route::get('/sertifikat', [SertifikatController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.sertifikat');
-    Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->middleware(['auth', 'admin'])->name('admin.sertifikat.create');
-    Route::post('/sertifikat', [SertifikatController::class, 'store'])->name('admin.sertifikat.store');
-    Route::get('/sertifikat/{id}/edit', [SertifikatController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.sertifikat.edit');
-    Route::put('/sertifikat/{id}', [SertifikatController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.sertifikat.update');
-    Route::delete('/sertifikat/{id}', [SertifikatController::class, 'destroy'])->middleware(['auth', 'admin'])->name('admin.sertifikat.destroy');
+    Route::prefix('sertifikat')->name('admin.sertifikat.')->group(function () {
+        Route::get('/', [SertifikatController::class, 'index'])->name('index');
+        Route::get('/create', [SertifikatController::class, 'create'])->name('create');
+        Route::post('/', [SertifikatController::class, 'store'])->name('store');
+        Route::get('/{sertifikat}/edit', [SertifikatController::class, 'edit'])->name('edit');
+        Route::put('/{sertifikat}', [SertifikatController::class, 'update'])->name('update');
+        Route::delete('/{sertifikat}', [SertifikatController::class, 'destroy'])->name('destroy');
+    });
 
     //Contact
-    Route::get('/contacts', [ContactController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.contacts.index');
-    Route::get('/contacts/create', [ContactController::class, 'create'])->middleware(['auth', 'admin'])->name('admin.contacts.create');
-    Route::post('/contacts', [ContactController::class, 'store'])->middleware(['auth', 'admin'])->name('admin.contacts.store');
-    Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.contacts.edit');
-    Route::put('/contacts/{id}', [ContactController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.contacts.update');
-    Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->middleware(['auth', 'admin'])->name('admin.contacts.destroy');
+    Route::prefix('contacts')->name('admin.contacts.')->group(function () {
+        Route::get('/', [ContactController::class, 'index'])->name('index');
+        Route::get('/create', [ContactController::class, 'create'])->name('create');
+        Route::post('/', [ContactController::class, 'store'])->name('store');
+        Route::get('/{contact}/edit', [ContactController::class, 'edit'])->name('edit');
+        Route::put('/{contact}', [ContactController::class, 'update'])->name('update');
+        Route::delete('/{contact}', [ContactController::class, 'destroy'])->name('destroy');
+    });
 
     //Project
-    Route::get('/projects', [ProjectController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.projects.index');
-    Route::get('/projects/create', [ProjectController::class, 'create'])->middleware(['auth', 'admin'])->name('admin.projects.create');
-    Route::post('/projects', [ProjectController::class, 'store'])->middleware(['auth', 'admin'])->name('admin.projects.store');
-    Route::get('/projects/{project}/edit', [ProjectController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.projects.edit');
-    Route::put('/projects/{project}', [ProjectController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.projects.update');
-    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->middleware(['auth', 'admin'])->name('admin.projects.destroy');
+    Route::prefix('projects')->name('admin.projects.')->group(function () {
+        Route::get('/', [ProjectController::class, 'index'])->name('index');
+        Route::get('/create', [ProjectController::class, 'create'])->name('create');
+        Route::post('/', [ProjectController::class, 'store'])->name('store');
+        Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('edit');
+        Route::put('/{project}', [ProjectController::class, 'update'])->name('update');
+        Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('destroy');
+    });
 
     //Skill
-    Route::get('/skill', [SkillController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.skill');
-    Route::get('/skill/create', [SkillController::class, 'create'])->middleware(['auth', 'admin'])->name('admin.skill.create');
-    Route::post('/skill', [SkillController::class, 'store'])->middleware(['auth', 'admin'])->name('admin.skill.store');
-    Route::get('/skill/{skill}/edit', [SkillController::class, 'edit'])->middleware(['auth', 'admin'])->name('admin.skill.edit');
-    Route::put('/skill/{skill}', [SkillController::class, 'update'])->middleware(['auth', 'admin'])->name('admin.skill.update');
-    Route::delete('/skill/{skill}', [SkillController::class, 'destroy'])->middleware(['auth', 'admin'])->name('admin.skill.destroy');
+    Route::prefix('skills')->name('admin.skills.')->group(function () {
+        Route::get('/', [SkillController::class, 'index'])->name('index');
+        Route::get('/create', [SkillController::class, 'create'])->name('create');
+        Route::post('/', [SkillController::class, 'store'])->name('store');
+        Route::get('/{skill}/edit', [SkillController::class, 'edit'])->name('edit');
+        Route::put('/{skill}', [SkillController::class, 'update'])->name('update');
+        Route::delete('/{skill}', [SkillController::class, 'destroy'])->name('destroy');
+    });
 });
 
 
