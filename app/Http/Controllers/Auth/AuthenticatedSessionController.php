@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         if($request->user()->usertype == 'admin')
         {
-            return redirect('/admin/dashboard');
+            return redirect('/admin/');
         }
 
         return redirect()->intended(route('dashboard', absolute: false));

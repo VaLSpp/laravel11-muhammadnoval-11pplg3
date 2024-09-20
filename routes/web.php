@@ -10,12 +10,15 @@ use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
 
-Route::prefix('admin')->group(function () {
-    //About
-    Route::prefix('abouts')->name('admin.abouts.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix(('admin'))->name('admin.')->group(function() {
+    // Dashboard
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+
+    // About
+    Route::prefix('about')->name('about.')->group(function () {
         Route::get('/', [AboutController::class, 'index'])->name('index');
         Route::get('/create', [AboutController::class, 'create'])->name('create');
         Route::post('/', [AboutController::class, 'store'])->name('store');
@@ -24,8 +27,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{about}', [AboutController::class, 'destroy'])->name('destroy');
     });
 
-    //Sertifikat
-    Route::prefix('sertifikat')->name('admin.sertifikat.')->group(function () {
+    // Sertifikat
+    Route::prefix('sertifikat')->name('sertifikat.')->group(function () {
         Route::get('/', [SertifikatController::class, 'index'])->name('index');
         Route::get('/create', [SertifikatController::class, 'create'])->name('create');
         Route::post('/', [SertifikatController::class, 'store'])->name('store');
@@ -34,8 +37,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{sertifikat}', [SertifikatController::class, 'destroy'])->name('destroy');
     });
 
-    //Contact
-    Route::prefix('contacts')->name('admin.contacts.')->group(function () {
+    // Contact
+    Route::prefix('contacts')->name('contacts.')->group(function () {
         Route::get('/', [ContactController::class, 'index'])->name('index');
         Route::get('/create', [ContactController::class, 'create'])->name('create');
         Route::post('/', [ContactController::class, 'store'])->name('store');
@@ -44,8 +47,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{contact}', [ContactController::class, 'destroy'])->name('destroy');
     });
 
-    //Project
-    Route::prefix('projects')->name('admin.projects.')->group(function () {
+    // Project
+    Route::prefix('projects')->name('projects.')->group(function () {
         Route::get('/', [ProjectController::class, 'index'])->name('index');
         Route::get('/create', [ProjectController::class, 'create'])->name('create');
         Route::post('/', [ProjectController::class, 'store'])->name('store');
@@ -54,8 +57,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('destroy');
     });
 
-    //Skill
-    Route::prefix('skills')->name('admin.skills.')->group(function () {
+    // Skill
+    Route::prefix('skills')->name('skills.')->group(function () {
         Route::get('/', [SkillController::class, 'index'])->name('index');
         Route::get('/create', [SkillController::class, 'create'])->name('create');
         Route::post('/', [SkillController::class, 'store'])->name('store');
@@ -64,11 +67,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{skill}', [SkillController::class, 'destroy'])->name('destroy');
     });
 });
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
